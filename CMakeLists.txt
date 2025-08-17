@@ -38,12 +38,14 @@ file(MAKE_DIRECTORY "${SPRITES_OUTPUT_DIR}")
 # list to hold all PNG output files
 set(SPRITES_PNGS)
 
+# changed below to bmp. Not changing comments though
+
 # for each .aseprite file, create a custom command to convert it
 foreach(ASE_FILE IN LISTS ASEPRITE_FILES)
     # get relative path inside assets folder
     file(RELATIVE_PATH REL_PATH "${CMAKE_SOURCE_DIR}/assets" "${CMAKE_SOURCE_DIR}/${ASE_FILE}")
     # replace file extension
-    string(REPLACE ".aseprite" ".png" PNG_FILE "${REL_PATH}")
+    string(REPLACE ".aseprite" ".bmp" PNG_FILE "${REL_PATH}")
 
     # full path of output png in build directory
     set(OUTPUT_PNG "${SPRITES_OUTPUT_DIR}/${PNG_FILE}")
@@ -68,14 +70,26 @@ add_custom_target(build_sprites ALL DEPENDS ${SPRITES_PNGS})
 
 # === ASEPRITE END ===
 
+# === LIBS ===
+
+#find_package(PNG REQUIRED) # if in need of png support
+
+# === LIBS END ===
+
 # add executable
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 # executable must depend on the sprites before building
 add_dependencies(${PROJECT_NAME} build_sprites)
 
+# === LINKING ===
+
 if(WIN32)
-    target_link_libraries(${PROJECT_NAME} gdi32)
+    target_link_libraries(${PROJECT_NAME} PRIVATE gdi32)
 endif()
+
+#target_link_libraries(${PROJECT_NAME} PRIVATE PNG::PNG) # if in need of png support
+
+# === LINKING END ===
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})

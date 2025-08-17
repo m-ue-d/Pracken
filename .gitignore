@@ -2,3 +2,4 @@ build/*
 !build/build.bat
 .vscode
 .env.local
+vcpkg_installed/

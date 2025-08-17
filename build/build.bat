@@ -5,7 +5,11 @@ for /f "usebackq tokens=1,* delims==" %%A in ("../.env.local") do (
 )
 
 REM Run CMake commands in the same environment
+
 cd ..
-cmake -S . -B build
+
+cmake --preset vcpkg -S . -B build
+
 cd build
+
 cmake --build .
