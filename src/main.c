@@ -4,11 +4,14 @@
 
 #include <stdlib.h>
 
-#include "platform/platform_display.h"
+//local libs
+#include "tinycthread.h"
 
 //systems
 #include "systems/graphicssystem.h"
 
+bool isRunning = true;
+mtx_t lock;
 
 void p_sleep(int ms) {
     #ifdef _WIN32
@@ -20,17 +23,20 @@ void p_sleep(int ms) {
 }
 
 int main(int argc, char const *argv[]) {
-    start_display(rgbBuffer, WIDTH, HEIGHT);    //non blocking
-    
-    //white background
-    fill_buffer(255,243,237);
+    thrd_t threads[1];
+    int thread_ids[1] = {1};
+
+    //start graphics state
+    init_graphics();
+    thrd_create(&threads[0], update, &isRunning);
     
     //main game loop
-    while (1) {
-        
-        //draw joker card sprite
-        fill_sprite("../assets/cards/2OfClubs.bmp", 0, 0);
+    while (isRunning) {
+        // 1. handle events
+        // 2. update gamestate
     }
+
+
 
     return 0;
 }

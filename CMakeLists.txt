@@ -72,7 +72,7 @@ add_custom_target(build_sprites ALL DEPENDS ${SPRITES_PNGS})
 
 # === LIBS ===
 
-#find_package(PNG REQUIRED) # if in need of png support
+# find_package(<<lib>> REQUIRED)
 
 # === LIBS END ===
 
@@ -88,8 +88,8 @@ if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE gdi32)
 endif()
 
-#target_link_libraries(${PROJECT_NAME} PRIVATE PNG::PNG) # if in need of png support
+# target_link_libraries(${PROJECT_NAME} PRIVATE <<libs>>)
 
 # === LINKING END ===
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR} "${CMAKE_SOURCE_DIR}/src/tinycthread")
