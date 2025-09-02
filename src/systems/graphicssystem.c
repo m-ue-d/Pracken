@@ -1,4 +1,4 @@
-#include "graphicssystem.h";
+#include "graphicssystem.h"
 
 uint8_t* load_bmp_rgb(const char* filename, int* outWidth, int* outHeight) {
     FILE *img = fopen(filename, "rb");
@@ -69,7 +69,6 @@ uint8_t* load_bmp_rgb(const char* filename, int* outWidth, int* outHeight) {
     return rgb_data;
 }
 
-
 void fill_buffer(uint8_t r, uint8_t g, uint8_t b) {
     for (int i = 0; i < WIDTH * HEIGHT; i++) {
         rgbBuffer[i * 3 + 0] = r;
@@ -135,7 +134,7 @@ void update(void* arg) {
         
         //---- drawing logic ----
         fill_buffer(255,243,237);
-        fill_sprite("../assets/cards/2OfClubs.bmp", frame*8 % WIDTH, 0);
+        fill_sprite("../assets/cards/2OfClubs.bmp", (frame*8 % (WIDTH+31)) - 31, 0);
         //----     end      ----
 
         request_redraw();   //platform dependant
