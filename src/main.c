@@ -40,7 +40,7 @@ int main(int argc, char const *argv[]) {
         // 2. update gamestate
     }
 
-
+    free_discard_pile();
 
     return 0;
 }
