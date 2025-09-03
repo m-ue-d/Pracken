@@ -23,9 +23,9 @@ void draw_phase() {
 
     //TODO: draw random card
 
-    CardVariant card = attackPile;
+    //CardVariant card = attackPile;
 
-    handCards[currentPlayer][next] = card;
+    //handCards[currentPlayer][next] = card;
 }
 
 bool place_card() {
