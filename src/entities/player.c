@@ -1,9 +1,19 @@
 #include "player.h"
 
-CardVariant handCards[2][MAX_CARDS];
+SupportCard supportPile[2][SUPPORT_DECK_SIZE] = {0};
+int supportPileCount[2] = {0, 0};
 
-AttackCard openAttackCards[2][4];
+CardVariant handCards[2][MAX_CARDS] = {0};
+int handCardsCount[2] = {0, 0};
 
-CardVariant openSupportCards[2][4];
+CardVariant openAttackCards[2][4] = {0};
+int openAttackCardsCount[2] = {0, 0};
+
+CardVariant openSupportCards[2][4] = {0};
+int openSupportCardsCount[2] = {0, 0};
 
 float hp[2] = { 8888, 8888 };
+
+void init_support_deck(int augmentation_id) {
+    //TODO: Implement
+}

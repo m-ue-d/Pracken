@@ -8,6 +8,10 @@ typedef enum {
 #define CARDWIDTH = 31
 #define CARDHEIGHT = 46
 
+#define ATTACK_DECK_SIZE 52
+#define SUPPORT_DECK_SIZE 8
+#define MAX_CARDS 128
+
 typedef struct {
     Color color;
     int value;

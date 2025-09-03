@@ -2,14 +2,14 @@
 #include "stdlib.h"
 
 #include "../components/cards.h"
-
-#define ATTACK_DECK_SIZE 52
-#define SUPPORT_DECK_SIZE 8
-#define MAX_CARDS 128
+#include "../entities/player.h"
 
 extern AttackCard attackPile[ATTACK_DECK_SIZE];
-extern SupportCard supportPile[SUPPORT_DECK_SIZE];
+extern int attackPileCount;
+
 extern CardVariant discardPile[MAX_CARDS];
+extern int discardPileCount;
+
 
 extern int currentTurn;
 

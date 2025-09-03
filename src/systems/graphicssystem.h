@@ -61,7 +61,7 @@ uint8_t* load_bmp_rgb(const char* filename, int* outWidth, int* outHeight);
 
 void fill_buffer(uint8_t r, uint8_t g, uint8_t b);
 
-void fill_sprite(char* url, uint8_t x, uint8_t y);
+void fill_sprite(char* url, uint32_t x, uint32_t y);
 
 void update(void* id);
 
