@@ -1,9 +1,10 @@
 #include "../systems/cardsystem.h"
 
-//arrays exist twice (player, opponent); similarly attributes are contained in arrays with the first value being the player and the second being the opponent =)
+CardVariant handCards[2][MAX_CARDS];
 
-CardVariant handCardsPlayer[MAX_CARDS];
-CardVariant handCardsOpponent[MAX_CARDS];
+AttackCard openAttackCards[2][4];
+
+CardVariant openSupportCards[2][4];
 
 extern float hp[2];
 

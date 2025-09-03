@@ -1,6 +1,9 @@
 #include "player.h"
 
-CardVariant handCardsPlayer[MAX_CARDS];
-CardVariant handCardsOpponent[MAX_CARDS];
+CardVariant handCards[2][MAX_CARDS];
+
+AttackCard openAttackCards[2][4];
+
+CardVariant openSupportCards[2][4];
 
 float hp[2] = { 8888, 8888 };

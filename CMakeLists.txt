@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(trtptm C)
+project(pracken C)
 
 # find sources via wildcard
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS

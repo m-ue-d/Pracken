@@ -49,7 +49,7 @@ void request_redraw(void) {
 }
 
 DWORD WINAPI window_thread(LPVOID lpParam) {
-    const wchar_t CLASS_NAME[] = L"TRTPTMWindowClass";
+    const wchar_t CLASS_NAME[] = L"PrackenWindowClass";
 
     WNDCLASSW wc = {0};
     wc.lpfnWndProc = WindowProc;
@@ -62,7 +62,7 @@ DWORD WINAPI window_thread(LPVOID lpParam) {
     g_hwnd = CreateWindowExW(
         0,
         CLASS_NAME,
-        L"TRTPTM",
+        L"Pracken",
         WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
         CW_USEDEFAULT, CW_USEDEFAULT, 
         g_width, g_height,

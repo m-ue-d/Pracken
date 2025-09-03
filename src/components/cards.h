@@ -19,3 +19,14 @@ typedef struct {
     int value;
     float baseModifier;
 } JokerCard;
+
+typedef struct {
+    char name[128];
+    float modifier;
+} SupportCard;
+
+typedef enum { Attack, Joker, Support } CardTypeTag;
+typedef struct {
+    CardTypeTag type;
+    void *ptr;
+} CardVariant;
