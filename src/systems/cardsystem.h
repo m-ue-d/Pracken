@@ -1,5 +1,8 @@
 #include "stdbool.h"
 #include "stdlib.h"
+#include "stdio.h"
+
+#include "../utils/random.h"
 
 #include "../components/cards.h"
 #include "../entities/player.h"
@@ -15,11 +18,11 @@ extern int currentTurn;
 
 void init_attack_deck();
 
-void draw_phase();
+void draw_card();
 
-bool place_card();
+bool place_card(int idx, int x, int y);
 
-void battle_phase();
+void attack_opponent();
 
 bool discard_card(int idx);
 

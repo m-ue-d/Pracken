@@ -3,10 +3,10 @@
 int currentTurn = 0;
 
 AttackCard attackPile[ATTACK_DECK_SIZE] = {0};
-attackPileCount = 0;
+int attackPileCount = 0;
 
 CardVariant discardPile[MAX_CARDS] = {0};
-discardPileCount = 0;
+int discardPileCount = 0;
 
 void init_attack_deck() {
     for (int i = 0; i < ATTACK_DECK_SIZE; i++) {
@@ -16,23 +16,48 @@ void init_attack_deck() {
             .baseModifier = 1.0f
         };
     }
+    attackPileCount = ATTACK_DECK_SIZE;
+
+    shuffle_deck(attackPile, attackPileCount);
 }
 
-void draw_phase() {
+void shuffle_deck(CardVariant *deck, size_t decksize) {
+    for(size_t a = 0; a < decksize - 1; a++) {
+        size_t b = a + rand_lim(decksize - a);
+
+        CardVariant temp = deck[a];
+        deck[a] = deck[b];  
+        deck[b] = temp;
+    }
+}
+
+void draw_card() {
     int currentPlayer = currentTurn % 2;
 
-    //TODO: draw random card
+    if(attackPileCount == 0) {
+        printf("No cards left to draw");
+        return;
+    }
 
-    //CardVariant card = attackPile;
+    AttackCard *card = malloc(sizeof(AttackCard));
+    *card = attackPile[attackPileCount - 1];
+    attackPileCount--;
 
-    //handCards[currentPlayer][next] = card;
+    handCards[currentPlayer][handCardsCount[currentPlayer]] = (CardVariant) { 
+        .ptr = card, 
+        .type = Attack
+    };
+    handCardsCount[currentPlayer]++;
 }
 
-bool place_card() {
+/*
+place a card from the hand into slot x/y
+*/
+bool place_card(int idx, int x, int y) {
     return false;
 }
 
-void battle_phase() {
+void attack_opponent() {
 
 }
 

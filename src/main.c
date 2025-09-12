@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include <stdlib.h>
+#include <time.h>
 
 //local libs
 #include "tinycthread.h"
@@ -32,6 +33,7 @@ int main(int argc, char const *argv[]) {
     thrd_create(&threads[0], update, &isRunning);
 
     //init game state
+    srand(time(NULL));
     init_attack_deck();
     
     //main game loop
