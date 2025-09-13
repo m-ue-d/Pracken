@@ -1,3 +1,6 @@
+#ifndef CARDS_H
+#define CARDS_H
+
 typedef enum {
     SPADE,
     CLUB,
@@ -34,3 +37,5 @@ typedef struct {
     CardTypeTag type;
     void *ptr;
 } CardVariant;
+
+#endif

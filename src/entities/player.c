@@ -6,14 +6,14 @@ int supportPileCount[2] = {0, 0};
 CardVariant handCards[2][MAX_CARDS] = {0};
 int handCardsCount[2] = {0, 0};
 
-CardVariant openAttackCards[2][4] = {0};
-int openAttackCardsCount[2] = {0, 0};
-
-CardVariant openSupportCards[2][4] = {0};
-int openSupportCardsCount[2] = {0, 0};
-
 float hp[2] = { 8888, 8888 };
 
 void init_support_deck(int augmentation_id) {
     //TODO: Implement
+}
+
+void add_modifier(int player, PlacementModifier mod) {
+    if (augmentations[player]->modifierCount < MAX_AUGMENTATION_MODIFIERS) {
+        augmentations[player]->modifiers[augmentations[player]->modifierCount++] = mod;
+    }
 }

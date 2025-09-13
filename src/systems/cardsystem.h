@@ -1,11 +1,17 @@
-#include "stdbool.h"
-#include "stdlib.h"
-#include "stdio.h"
+#ifndef CARDSYSTEM_H
+#define CARDSYSTEM_H
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <math.h>
 
 #include "../utils/random.h"
 
 #include "../components/cards.h"
 #include "../entities/player.h"
+#include "../entities/board.h"
 
 extern AttackCard attackPile[ATTACK_DECK_SIZE];
 extern int attackPileCount;
@@ -16,7 +22,7 @@ extern int discardPileCount;
 
 extern int currentTurn;
 
-void init_attack_deck();
+void init_decks();
 
 void draw_card();
 
@@ -27,3 +33,5 @@ void attack_opponent();
 bool discard_card(int idx);
 
 void free_discard_pile();
+
+#endif

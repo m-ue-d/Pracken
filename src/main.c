@@ -12,6 +12,9 @@
 #include "systems/graphicssystem.h"
 #include "systems/cardsystem.h"
 
+//components
+#include "entities/board.h"
+
 bool isRunning = true;
 mtx_t lock;
 
@@ -34,7 +37,8 @@ int main(int argc, char const *argv[]) {
 
     //init game state
     srand(time(NULL));
-    init_attack_deck();
+    init_board();
+    init_decks();
     
     //main game loop
     while (isRunning) {
