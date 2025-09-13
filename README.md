@@ -19,4 +19,4 @@ You want to play this game on a random device that runs c and has at least 8 inp
 
 This game is built to make porting as easy as possible. You just have to write your own platform dependent code. For this, you can look at the various implementations in the existing code of **src/platform/...**. If you find yourself stuck or have questions regarding this, feel free to ask me! :smile:
 
-In the future, there might be documentation on how to do this exactly, but since the game isn't even finished and will change a loti won't bother to do so. Till then!
+In the future, there might be documentation on how to do this exactly, but since the game isn't even finished and will change a lot i won't bother to do so. Till then!
