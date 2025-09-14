@@ -24,6 +24,10 @@ extern int currentTurn;
 
 void init_decks();
 
+void shuffle_deck(void *deck, size_t decksize, size_t elementSize);
+
+void remove_from_hand(int player, int idx);
+
 void draw_card();
 
 bool place_card(int idx, int x, int y);

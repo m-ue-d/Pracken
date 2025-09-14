@@ -8,6 +8,8 @@ int handCardsCount[2] = {0, 0};
 
 float hp[2] = { 8888, 8888 };
 
+Augmentation *augmentations[2] = {0};
+
 void init_support_deck(int augmentation_id) {
     //TODO: Implement
 }

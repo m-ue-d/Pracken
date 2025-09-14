@@ -17,20 +17,23 @@ void init_decks() {
         };
     }
     attackPileCount = ATTACK_DECK_SIZE;
-    shuffle_deck(attackPile, ATTACK_DECK_SIZE, sizeof(AttackCard));
+    shuffle_deck(attackPile, attackPileCount, sizeof(AttackCard));
 
     for (int i = 0; i < sizeof(hp) / sizeof(hp[0]); i++){
-        shuffle_deck(augmentations[i]->supportPile, SUPPORT_DECK_SIZE, sizeof(SupportCard));
+        if(!augmentations[i]) continue;
+        shuffle_deck(augmentations[i]->supportPile, augmentations[i]->supportPileCount, sizeof(SupportCard));
     }
 }
 
 void shuffle_deck(void *deck, size_t decksize, size_t elementSize) {
+    if (deck == NULL || decksize <= 1) return;
+
     char *arr = deck;
     char *temp = malloc(elementSize);
     if (!temp) return;
 
-    for (size_t i = 0; i < decksize - 1; i++) {
-        size_t j = i + rand_lim(decksize - i);
+    for (size_t i = decksize - 1; i > 0; i--) {
+        size_t j = rand_lim(i + 1);
 
         memcpy(temp, arr + i * elementSize, elementSize);
         memcpy(arr + i * elementSize, arr + j * elementSize, elementSize);
@@ -76,7 +79,7 @@ place a card from the hand into slot x/y
 bool place_card(int idx, int x, int y) {
     int currentPlayer = currentTurn % 2;
     CardVariant *card = &handCards[currentPlayer][idx];
-    BoardSlot *slot = &board[y][x];
+    BoardSlot *slot = &board[currentPlayer][y][x];
 
     Augmentation *aug = augmentations[currentPlayer];
 
@@ -84,7 +87,7 @@ bool place_card(int idx, int x, int y) {
         if(!aug->modifiers[i](currentPlayer, x, y, card, slot)) return false;
     }
     
-    if(!base_rule_check(slot, card)) return false;
+    if (!base_rule_check(slot, card)) return false;
 
     slot->card = card;
     remove_from_hand(currentPlayer, idx);
@@ -92,11 +95,14 @@ bool place_card(int idx, int x, int y) {
 }
 
 void attack_opponent() {
+    int currentPlayer = currentTurn % 2;
 
 }
 
 bool discard_card(int idx) {
-    
+    //TODO: DiscardModifiers
+
+
     currentTurn++;
     return false;
 }

@@ -9,7 +9,7 @@ extern int handCardsCount[2];
 
 extern float hp[2];
 
-Augmentation *augmentations[2];
+extern Augmentation *augmentations[2];
 
 void init_support_deck(int augmentation_id);
 
