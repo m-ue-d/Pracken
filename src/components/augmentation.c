@@ -10,8 +10,12 @@ bool clown_joker_anywhere(int player, int x, int y, CardVariant *card, BoardSlot
 
 Augmentation clownAug = {
     .name = "Clown",
-    .modifiers = { clown_joker_anywhere },
-    .modifierCount = 1,
+    .placementModifiers = { clown_joker_anywhere },
+    .placementModifierCount = 1,
+    .attackModifiers = {0},
+    .attackModifierCount = 0,
+    .discardModifiers = {0},
+    .discardModifierCount = 0,
     .supportPileCount = SUPPORT_DECK_SIZE,
     .supportPile = {0}  //TODO: think of cool cards
 };
@@ -29,8 +33,12 @@ bool magician_swap_attack_support(int player, int x, int y, CardVariant *card, B
 
 Augmentation magicianAug = {
     .name = "Magician",
-    .modifiers = { magician_swap_attack_support },
-    .modifierCount = 1,
+    .placementModifiers = { magician_swap_attack_support },
+    .placementModifierCount = 1,
+    .attackModifiers = {0},
+    .attackModifierCount = 0,
+    .discardModifiers = {0},
+    .discardModifierCount = 0,
     .supportPileCount = SUPPORT_DECK_SIZE,
     .supportPile = {0}  //TODO: think of cool cards
 };

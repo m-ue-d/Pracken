@@ -36,6 +36,4 @@ void attack_opponent();
 
 bool discard_card(int idx);
 
-void free_discard_pile();
-
 #endif

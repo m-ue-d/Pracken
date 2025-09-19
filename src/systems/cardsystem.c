@@ -83,11 +83,11 @@ bool place_card(int idx, int x, int y) {
 
     Augmentation *aug = augmentations[currentPlayer];
 
-    for (int i = 0; i < aug->modifierCount; i++) {
-        if(!aug->modifiers[i](currentPlayer, x, y, card, slot)) return false;
+    for (int i = 0; i < aug->placementModifierCount; i++) {
+        if(!aug->placementModifiers[i](currentPlayer, x, y, card, slot)) return false;
     }
     
-    if (!base_rule_check(slot, card)) return false;
+    if (!base_rule_check(slot, card)) return false; //FIXME: Flawed if used here =)
 
     slot->card = card;
     remove_from_hand(currentPlayer, idx);
@@ -96,19 +96,25 @@ bool place_card(int idx, int x, int y) {
 
 void attack_opponent() {
     int currentPlayer = currentTurn % 2;
-
+    //TODO: Implement
 }
 
+/*
+discard the hand card at idx
+*/
 bool discard_card(int idx) {
-    //TODO: DiscardModifiers
+    int currentPlayer = currentTurn % 2;
+    CardVariant *card = &handCards[currentPlayer][idx];
 
+    Augmentation *aug = augmentations[currentPlayer];
 
-    currentTurn++;
-    return false;
-}
-
-void free_discard_pile() {
-    for (int i = 0; i < MAX_CARDS; i++) {
-        free(discardPile[i].ptr);
+    for (int i = 0; i < aug->discardModifierCount; i++) {
+        aug->discardModifiers[i](currentPlayer, card);  //TODO: Think of a way to interpret the true/false output!
     }
+
+    discardPile[discardPileCount++] = *card;
+
+    remove_from_hand(currentPlayer, idx);
+    currentTurn++;
+    return true;
 }
