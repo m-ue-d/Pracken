@@ -13,6 +13,12 @@
 #include "../entities/player.h"
 #include "../entities/board.h"
 
+typedef enum {
+    RULE_PASS,
+    RULE_ALLOW,
+    RULE_DENY
+} RuleResult;
+
 extern AttackCard attackPile[ATTACK_DECK_SIZE];
 extern int attackPileCount;
 

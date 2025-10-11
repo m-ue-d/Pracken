@@ -83,11 +83,18 @@ bool place_card(int idx, int x, int y) {
 
     Augmentation *aug = augmentations[currentPlayer];
 
+    RuleResult decision = RULE_PASS;
+
+    //eval and exec modifiers
     for (int i = 0; i < aug->placementModifierCount; i++) {
-        if(!aug->placementModifiers[i](currentPlayer, x, y, card, slot)) return false;
+        RuleResult res = aug->placementModifiers[i](currentPlayer, x, y, card, slot);
+
+        if (res == RULE_DENY) return false;
+        if (res == RULE_ALLOW) decision = RULE_ALLOW;
     }
     
-    if (!base_rule_check(slot, card)) return false; //FIXME: Flawed if used here =)
+    
+    if (decision == RULE_PASS && !base_rule_check(slot, card)) return false;
 
     slot->card = card;
     remove_from_hand(currentPlayer, idx);
