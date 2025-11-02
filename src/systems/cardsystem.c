@@ -104,6 +104,7 @@ bool place_card(int idx, int x, int y) {
 void attack_opponent() {
     int currentPlayer = currentTurn % 2;
     //TODO: Implement
+    
 }
 
 /*
