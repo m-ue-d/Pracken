@@ -20,12 +20,6 @@ void add_placement_modifier(int player, PlacementModifier mod) {
     }
 }
 
-void add_attack_modifier(int player, AttackModifier mod) {
-    if (augmentations[player]->attackModifierCount < MAX_AUGMENTATION_MODIFIERS) {
-        augmentations[player]->attackModifiers[augmentations[player]->attackModifierCount++] = mod;
-    }
-}
-
 void add_discard_modifier(int player, DiscardModifier mod) {
     if (augmentations[player]->discardModifierCount < MAX_AUGMENTATION_MODIFIERS) {
         augmentations[player]->discardModifiers[augmentations[player]->discardModifierCount++] = mod;

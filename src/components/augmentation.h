@@ -12,8 +12,11 @@
 //modifies placement and returns if the default should be skipped or not
 typedef bool (*PlacementModifier)(int player, int x, int y, CardVariant *card, BoardSlot *slot);
 
-//returns damage based on currentDamage
-typedef int (*DamageModifier)(int attackerPlayer, int defenderPlayer, CardVariant *attacker, CardVariant *target, int currentDamage);
+//returns new damage based on currentDamage
+typedef int (*AttackModifier)(int attackerPlayer, int defenderPlayer, CardVariant *attacker, CardVariant *target, int currentDamage);
+
+//returns new damage based on currentDamage
+typedef int (*DefenseModifier)(int defenderPlayer, int attackerPlayer, CardVariant *target, CardVariant *attacker, int currentDamage);
 
 //handles destruction and returns whether the default action is allowed or not
 typedef bool (*DestructionHandler)(int ownerPlayer, CardVariant *card, int incomingDamage);
@@ -32,8 +35,11 @@ typedef struct {
     int placementModifierCount;
 
     //2: combat
-    DamageModifier damageModifiers[MAX_AUGMENTATION_MODIFIERS];
-    int damageModifierCount;
+    AttackModifier attackModifiers[MAX_AUGMENTATION_MODIFIERS];
+    int attackModifierCount;
+
+    DefenseModifier defenseModifiers[MAX_AUGMENTATION_MODIFIERS];
+    int defenseModifierCount;
 
     DestructionHandler destructionHandlers[MAX_AUGMENTATION_MODIFIERS];
     int destructionHandlerCount;

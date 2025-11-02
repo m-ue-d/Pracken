@@ -15,7 +15,7 @@ void init_support_deck(int augmentation_id);
 
 //FIXME: DUPE CODE! REPLACE ASAP!!!
 void add_placement_modifier(int player, PlacementModifier mod);
-void add_attack_modifier(int player, AttackModifier mod);
+//TODO: add helper functions for combat related modifiers
 void add_discard_modifier(int player, DiscardModifier mod);
 
 #endif
