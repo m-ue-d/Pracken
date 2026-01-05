@@ -10,17 +10,20 @@ bool direct_attack_possible(int defender) {
 }
 
 int get_base_damage(CardVariant *attacker) {
-    if(!attacker) return;
+    if(!attacker) return 0;
 
     switch (attacker->type) {
-        case Attack:
+        case Attack: {
             AttackCard *a = (AttackCard *) attacker->ptr;
             return a ? a->value * a->baseModifier : 0;
-        case Joker:
+        }
+        case Joker: {
             JokerCard *j = (JokerCard *) attacker->ptr;
             return j ? j->value * j->baseModifier : 0;
-        default:
+        }
+        default: {
             return 0;
+        }
     }
 }
 
@@ -69,5 +72,5 @@ void attack_opponent(int currentTurn) {
     extern int chosenTargetX, chosenTargetY; //target coordinates
     extern bool chosenDirectAttack; // if true, attack HP directly
 
-
+    //TODO
 }

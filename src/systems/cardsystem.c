@@ -43,8 +43,8 @@ void shuffle_deck(void *deck, size_t decksize, size_t elementSize) {
     free(temp);
 }
 
-/*
-shifts cards left to remove the card at idx
+/**
+* shifts cards left to remove the card at idx
 */
 void remove_from_hand(int player, int idx) {
     for (int i = idx; i < handCardsCount[player] - 1; i++) {
@@ -53,8 +53,8 @@ void remove_from_hand(int player, int idx) {
     handCardsCount[player]--;
 }
 
-/*
-Draws a card from the selected pile
+/**
+* draws a card from the selected pile
 */
 void draw_card() {
     int currentPlayer = currentTurn % 2;
@@ -73,8 +73,8 @@ void draw_card() {
     };
 }
 
-/*
-place a card from the hand into slot x/y
+/**
+* place a card from the hand into slot x/y
 */
 bool place_card(int idx, int x, int y) {
     int currentPlayer = currentTurn % 2;
@@ -101,14 +101,8 @@ bool place_card(int idx, int x, int y) {
     return true;
 }
 
-void attack_opponent() {
-    int currentPlayer = currentTurn % 2;
-    //TODO: Implement
-    
-}
-
-/*
-discard the hand card at idx
+/**
+* discard the hand card at idx
 */
 bool discard_card(int idx) {
     int currentPlayer = currentTurn % 2;

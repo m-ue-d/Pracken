@@ -9,11 +9,11 @@
 
 
 //local libs
-#include "tinycthread.h"
-
-#include "../platform/platform_display.h"
+#include "platform_display.h"
+#include "graphics_config.h"
 
 #pragma pack(push, 1)
+
 typedef struct {
     uint16_t bfType;
     uint32_t bfSize;
@@ -51,20 +51,9 @@ typedef struct {
     #define BI_BITFIELDS 3
 #endif
 
-#define WIDTH 240
-#define HEIGHT 240
-#define FPS 32
-
-uint8_t rgbBuffer[WIDTH * HEIGHT * 3];
-
-uint8_t* load_bmp_rgb(const char* filename, int* outWidth, int* outHeight);
-
-void fill_buffer(uint8_t r, uint8_t g, uint8_t b);
-
-void fill_sprite(char* url, uint32_t x, uint32_t y);
-
-void update(void* id);
+extern uint8_t rgbBuffer[GFX_WIDTH * GFX_HEIGHT * GFX_BPP];
 
 void init_graphics();
+void update(void* arg);
 
 #endif

@@ -1,14 +1,41 @@
 cmake_minimum_required(VERSION 3.10)
 project(pracken C)
 
-# find sources via wildcard
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
+# add raylib as submodule
+add_subdirectory(external/raylib)
+
+# core sources (everything except platform display)
+file(GLOB_RECURSE CORE_SOURCES CONFIGURE_DEPENDS
      "${CMAKE_SOURCE_DIR}/src/*.c"
 )
 
-if(NOT SOURCES)
+# remove all platform display implementations from core list
+list(FILTER CORE_SOURCES EXCLUDE REGEX "display_.*\\.c$")
+
+# platform display backend
+if (DESKTOP)
+    set(PLATFORM_DISPLAY_SRC
+        src/platform/display_desktop.c
+    )
+else()
+    set(PLATFORM_DISPLAY_SRC
+        src/platform/display_embedded.c
+    )
+endif()
+
+if(NOT CORE_SOURCES AND PLATFORM_DISPLAY_SRC)
     message(FATAL_ERROR "No source files found! Check your directory structure.")
 endif()
+
+# === DOTENV LOADING ===
+file(STRINGS ${CMAKE_SOURCE_DIR}/.env.local ENV_FILE)
+foreach(VAR ${ENV_FILE})
+    string(REGEX MATCH "^[^=]*" KEY ${VAR})
+    string(REGEX REPLACE "^[^=]*=" "" VALUE ${VAR})
+    set(ENV{${KEY}} ${VALUE})
+endforeach()
+
+message(STATUS $ENV{EXAMPLE_ENV_VAR})
 
 # === ASEPRITE ===
 if(NOT DEFINED ASEPRITE_URL)
@@ -45,7 +72,7 @@ foreach(ASE_FILE IN LISTS ASEPRITE_FILES)
     # get relative path inside assets folder
     file(RELATIVE_PATH REL_PATH "${CMAKE_SOURCE_DIR}/assets" "${CMAKE_SOURCE_DIR}/${ASE_FILE}")
     # replace file extension
-    string(REPLACE ".aseprite" ".bmp" PNG_FILE "${REL_PATH}")
+    string(REPLACE ".aseprite" ".png" PNG_FILE "${REL_PATH}")
 
     # full path of output png in build directory
     set(OUTPUT_PNG "${SPRITES_OUTPUT_DIR}/${PNG_FILE}")
@@ -77,19 +104,30 @@ add_custom_target(build_sprites ALL DEPENDS ${SPRITES_PNGS})
 # === LIBS END ===
 
 # add executable
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} ${CORE_SOURCES} ${PLATFORM_DISPLAY_SRC})
+
+# set C standard to C11
+target_compile_features(${PROJECT_NAME} PRIVATE c_std_11)
 
 # executable must depend on the sprites before building
 add_dependencies(${PROJECT_NAME} build_sprites)
 
 # === LINKING ===
 
-if(WIN32)
-    target_link_libraries(${PROJECT_NAME} PRIVATE gdi32)
-endif()
+target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
 # target_link_libraries(${PROJECT_NAME} PRIVATE <<libs>>)
 
 # === LINKING END ===
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR} "${CMAKE_SOURCE_DIR}/src/tinycthread")
+# target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR} "${CMAKE_SOURCE_DIR}/src/tinycthread")
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/components
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/config
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/entities
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/platform
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/systems
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/tinycthread #TODO: remove this after writing OS abstraction layer
+)

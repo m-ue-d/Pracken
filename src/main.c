@@ -5,48 +5,40 @@
 #include <stdlib.h>
 #include <time.h>
 
-//local libs
-#include "tinycthread.h"
-
-//systems
+// systems
 #include "systems/graphicssystem.h"
 #include "systems/cardsystem.h"
 
-//components
+// components
 #include "entities/board.h"
 
 bool isRunning = true;
-mtx_t lock;
-
-void p_sleep(int ms) {
-    #ifdef _WIN32
-        Sleep(ms);
-    #else
-        struct timespec ts = { ms / 1000, (ms % 1000) * 1000000 };
-        nanosleep(&ts, NULL);
-    #endif
-}
+// mtx_t lock;
 
 int main(int argc, char const *argv[]) {
-    thrd_t threads[1];
-    int thread_ids[1] = {1};
+    // TODO: write a small OS abstraction layer for threading/mutex/sleep
+    // thrd_t threads[1];
+    // int thread_ids[1] = {1};
 
-    //start graphics state
+    // start graphics state
     init_graphics();
-    thrd_create(&threads[0], update, &isRunning);
+    // thrd_create(&threads[0], update, &isRunning);
 
-    //init game state
+    // init game state
     srand(time(NULL));
     init_board();
     init_decks();
     
-    //main game loop
+    // main game loop
     while (isRunning) {
+        // remove once threading is done
+        update(&isRunning);
+
         // 1. handle events
         // 2. update gamestate
     }
 
-    free_discard_pile();
+    // free_discard_pile();
 
     return 0;
 }

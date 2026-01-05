@@ -38,8 +38,6 @@ void draw_card();
 
 bool place_card(int idx, int x, int y);
 
-void attack_opponent();
-
 bool discard_card(int idx);
 
 #endif
