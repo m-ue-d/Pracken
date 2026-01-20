@@ -15,7 +15,7 @@ Coming soon
 
 ### For custom platforms:
 
-You want to play this game on a random device that runs c and has at least 8 input options?
+You want to play this game on a random device that has min. 240x240 px and at least 8 input options?
 
 This game is built to make porting as easy as possible. You just have to write your own platform dependent code. For this, you can look at the various implementations in the existing code of **src/platform/...**. If you find yourself stuck or have questions regarding this, feel free to ask me! :smile:
 
